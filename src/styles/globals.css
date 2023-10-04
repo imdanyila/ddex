@@ -1,3 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.cl-userButtonBox {
+    padding: 32px 32px !important;
+}
+
+.cl-userButtonAvatarBox {
+    width: 65px;
+    height: 65px;
+}
+
+.body {
+    background-color: white;
+}
+
+.user {
+    display: flex;
+    justify-content: flex-end;
+}
