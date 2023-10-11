@@ -10,8 +10,10 @@ import { set } from "zod";
 
 export default function Home() {
 
+  {/*
   const allRecipes = api.example.getAllRecipes.useQuery();
   const addRecipes = api.example.addRecipe.useMutation();
+*/}
 
   const [name, setName] = useState("");
 

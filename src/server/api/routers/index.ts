@@ -26,7 +26,7 @@ export const recipeRouter = createTRPCRouter({
                 cookTime: input.cookTime,
                 servings: input.servings,
                 instructions: {
-                    create: input.Instructions.map((instruction) => ({
+                     create: input.Instructions.map((instruction) => ({
                         instruction: instruction,
                         recipe: ''
                     }))
