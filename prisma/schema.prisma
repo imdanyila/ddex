@@ -11,12 +11,67 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Example {
-    id        Int      @id @default(autoincrement())
-    createdAt DateTime @default(now())
+enum UnitType {
+  cups
+  tablespoon
+  teaspoon
+  custom
+}
 
-    content String @db.VarChar(255)
-    authorId String
+model Recipe {
+    id String @id @unique @default(cuid())
+    dishName String
+    servings Int?
+    prepTime Int?
+    cookTime Int?
+    ingredientsForRecipe ingredientsForRecipe[]
+    instructions Instructions[]
+    user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String
 
-    @@index([authorId])
+    @@index([userId])
+}
+
+model ingredientsForRecipe {
+  id           String     @id @unique @default(cuid())
+  recipe       Recipe     @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  ingredient   ingredient @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  quantity     Float
+  unit         String
+  recipeId     String
+  ingredientId String
+
+  @@unique([recipeId, ingredientId])
+  @@index([ingredientId])
+}
+
+model ingredient {
+    id String @id @unique @default(cuid())
+    name String
+    unitType UnitType
+    ingredientOnRecipe ingredientsForRecipe[]
+    user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId             String
+
+    @@index([userId])
+}
+
+model user {
+    id            String    @id @default(cuid())
+    name          String?
+    email         String?   @unique
+    emailVerified DateTime?
+    image         String?
+    recipes     Recipe[]
+    ingredients ingredient[]
+}
+
+model Instructions {
+  id String @id @unique @default(cuid())
+  stepNumber Int
+  stepDescription String
+  recipe Recipe @relation(fields: [recipeId], references: [id], onDelete: Cascade)
+  recipeId String
+
+  @@index([recipeId])
 }

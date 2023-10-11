@@ -6,7 +6,7 @@ export const recipeRouter = createTRPCRouter({
         const allRecipes = await ctx.db.recipe.findMany();
         return allRecipes;
     }),
-      addRecipe: publicProcedure.input(z.object({ 
+    addRecipe: publicProcedure.input(z.object({ 
         dishname: z.string(),
         prepTime: z.number(),
         cookTime: z.number(),
