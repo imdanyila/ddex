@@ -55,7 +55,7 @@ export default function Home() {
           <div className="boxes">
           <div className="box1-content">
             <div className="box1">
-              <button className="plusSign"><img className="image" src="/plusSign.png" width={60} height={60} /></button>
+              <Link className="plusSign" href="/recipe/addRecipe"><img className="image" src="/plusSign.png" width={60} height={60} /></Link>
               {/*<button className="filterIcon"><img className="image" src="/filterIcon.png" width={30} height={30} /></button>*/}
             </div>
             </div>
