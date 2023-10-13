@@ -3,7 +3,7 @@ import { api } from "npm/utils/api";
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function addRecipe() {
+export default function AddRecipe() {
   // calls api endpoints
   const allRecipes = api.example.getAllRecipes.useQuery();
   const addRecipes = api.example.addRecipe.useMutation();
