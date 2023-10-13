@@ -42,7 +42,7 @@ export default function AddRecipe() {
         {
           allRecipes.isLoading ? <div>Loading...</div> : <ul className="recipeList">
             {allRecipes.data?.map(({ id, dishName, servingSize, prepTime, cookTime }) => {
-              return <List>
+              return <List key={id}>
                 <Item key={id}>{dishName}</Item>
                 <Item key={id}>{servingSize}</Item>
                 <Item key={id}>{prepTime}</Item>
