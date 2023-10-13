@@ -24,7 +24,8 @@ export default function AddRecipe() {
           <Input placeholder="Serving Size" value={servingSize} onChange={({currentTarget: {value}}) => {setSize(value)}}></Input>
           <Input placeholder="Prep Time" value={prepTime} onChange={({currentTarget: {value}}) => {setPrep(value)}}></Input>
           <Input placeholder="Cook Time" value={cookTime} onChange={({currentTarget: {value}}) => {setCook(value)}}></Input>
-          <AddButton disabled={addRecipes.isLoading} onClick={async() => {
+          <AddButton disabled={addRecipes.isLoading} onClick={
+            async () => {
             await addRecipes.mutateAsync({
               dishName: dishName,
               servingSize: servingSize,
@@ -46,7 +47,8 @@ export default function AddRecipe() {
                 <Item key={id}>{servingSize}</Item>
                 <Item key={id}>{prepTime}</Item>
                 <Item key={id}>{cookTime}</Item>
-                <button disabled={deleteRecipes.isLoading} onClick={async() => {
+                <button disabled={deleteRecipes.isLoading} onClick={
+                  async() => {
                   await deleteRecipes.mutateAsync({ id })
                     allRecipes.refetch();
                 }}>Delete</button>
