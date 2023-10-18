@@ -21,7 +21,7 @@ interface Recipe{
   steps: Step[];
 }
 
-export default function addRecipe() {
+export default function AddRecipe() {
   // calls api endpoints
   const allRecipes = api.example.getAllRecipes.useQuery();
   const addRecipes = api.example.addRecipe.useMutation();
@@ -105,7 +105,7 @@ export default function addRecipe() {
           {/* input boxes for ingredients */}
           {
             ingredients.map((ingredient, idx) => {
-              return <div className="flex justify-center flex-row">
+              return <div key={idx} className="flex justify-center flex-row">
                  <input 
                   className="input m-10px p-5px w-[45%] rounded-10px text-center outline-none font-bold "
                  placeholder="Ingredient amount" value={ingredients[idx]!.amount} onChange={({ currentTarget: { value}}) => setRecipe((prev) => 
@@ -150,7 +150,7 @@ export default function addRecipe() {
           {/* input boxes for steps */}
            {
             steps.map((step, idx) => {
-              return <div className="flex justify-center text-center items-center flex-row">
+              return <div key={idx} className="flex justify-center text-center items-center flex-row">
                 <div className="m-10px font-bold text-10px text-textcolor" key={idx}>{idx+1}. </div>
                 <input 
                 className="input m-10px p-5px w-[60%] rounded-10px outline-none font-bold text-center"
@@ -172,8 +172,8 @@ export default function addRecipe() {
             await addRecipes.mutateAsync({
              ...recipe
             });
-           setRecipe(blankRecipe);
-            allRecipes.refetch();
+            setRecipe(blankRecipe);
+            await allRecipes.refetch();
             }}>Add Recipe</button>
         </div>
       </div>
@@ -183,7 +183,7 @@ export default function addRecipe() {
         {
           allRecipes.isLoading ? <div className="loading loading-spinner">loading</div> : <ul className="recipeList">
             {allRecipes.data?.map(({ id, dishName, servingSize, prepTime, cookTime, ingredients, steps }) => {
-              return <div className="flex flex-col justify-center text-center items-center">
+              return <div key={id} className="flex flex-col justify-center text-center items-center">
                 <div className="font-bold text-20px w-[100%]" key={id}>{dishName}</div>
                 <div className="font-bold text-20px w-[100%]" key={id}>{servingSize} people</div>
                 <div className="font-bold text-20px w-[100%]" key={id}>{prepTime}</div>
@@ -194,7 +194,7 @@ export default function addRecipe() {
                 {steps.map((step, idx) => <div className="font-bold text-20px w-[100%]" key={idx}>{idx+1}. {step.description}</div>)}
                 <button className="btn bg-accent text-white" disabled={deleteRecipes.isLoading} onClick={async() => {
                   await deleteRecipes.mutateAsync({ id })
-                  allRecipes.refetch();
+                  await allRecipes.refetch();
                 }}>Delete</button>
               </div>
             })}
