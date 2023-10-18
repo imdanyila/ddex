@@ -77,3 +77,6 @@
     border-radius: 60px;
     box-shadow: 28px 21px 20px 0px #E3E7F3;
 }
+.card w-96 bg-primary text-primary-content {
+    box-shadow: 28px 21px 20px 0px #E3E7F3;
+}

@@ -1,21 +1,9 @@
-import { UserButton, useUser } from "@clerk/nextjs";
-import { NextPage } from "next";
+import { UserButton } from "@clerk/nextjs";
 import Head from "next/head";
 import Link from "next/link";
-
-
-import { api } from "npm/utils/api";
-import { useState } from "react";
-import { set } from "zod";
+import { Plus } from "lucide-react";
 
 export default function Home() {
-
-  {/*
-  const allRecipes = api.example.getAllRecipes.useQuery();
-  const addRecipes = api.example.addRecipe.useMutation();
-*/}
-
-  const [name, setName] = useState("");
 
   return (
     <>
@@ -28,35 +16,10 @@ export default function Home() {
           <div className="user">
             <UserButton />
           </div>
-          {/*
-          <div className="recipes">
-            <h1>Recipes:</h1>
-            <ul>
-              {allRecipes.data?.map((Recipe: { id: string; title: string }) => (
-                <li key={Recipe.id}>
-                  <Link href={`/recipes/${Recipe.id}`}>
-                    <a>{Recipe.title}</a>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-
-            <Link href="/recipe/addRecipe">+</Link>
-
-            <input value={name} onChange={({currentTarget: {value}}) => setName(value)}></input>
-            <button disabled={addRecipes.isLoading} onClick={async() => {
-              await addRecipes.mutateAsync({name: name})
-              setName("")
-              allRecipes.refetch();
-            }}>Add Recipe</button>
-
-          </div>
-          */}
           <div className="boxes">
           <div className="box1-content">
-            <div className="box1">
-              <Link className="plusSign" href="/recipe/addRecipe"><img className="image" src="/plusSign.png" width={60} height={60} /></Link>
-              {/*<button className="filterIcon"><img className="image" src="/filterIcon.png" width={30} height={30} /></button>*/}
+            <div className="flex flex-col h-[494px] w-[335px] m-25px bg-white rounded-60px shadow-cardxl relative">
+              <Link className="mt-auto ml-auto mr-10px mb-10px h-[60px] w-[60px]" href="/recipe/addRecipe"><button className="btn btn-circle btn-secondary shadow-button"><Plus/></button></Link>
             </div>
             </div>
             <div className="box2" />

@@ -3,7 +3,12 @@ import { createTRPCRouter, publicProcedure } from "npm/server/api/trpc";
 
 export const exampleRouter = createTRPCRouter({
     getAllRecipes: publicProcedure.query(async ({ ctx }) => {
-        const allRecipes = await ctx.db.recipe.findMany();
+        const allRecipes = await ctx.db.recipe.findMany({
+            include: {
+                ingredients: true,
+                steps: true,
+            }
+        });
         return allRecipes
     }),
     addRecipe: publicProcedure.input(z.object({
@@ -11,16 +16,29 @@ export const exampleRouter = createTRPCRouter({
         servingSize: z.string(),
         prepTime: z.string(),
         cookTime: z.string(),
-    })).mutation(async ({ input, ctx }) => {
-        const newRecipe = await ctx.db.recipe.create({
+        steps: z.array(z.object({
+            stepNumber: z.number(), 
+    description: z.string()       })),
+    ingredients: z.array(z.object({
+        name: z.string(),
+        amount: z.string(),
+    }))
+    })).mutation(async ({ input:{ steps, ingredients, ...other}, ctx }) => {
+        return await ctx.db.recipe.create({
             data: {
-                dishName: input.dishName,
-                servingSize: input.servingSize,
-                prepTime: input.prepTime,
-                cookTime: input.cookTime
+                ...other,
+                steps: {
+                    createMany: {
+                        data: steps
+                    }
+                },
+                ingredients: {
+                    createMany: {
+                        data: ingredients
+                    }
+                }
             }
         })
-        return newRecipe;
     }),
     deleteRecipe: publicProcedure.input(z.object({
         id: z.number()

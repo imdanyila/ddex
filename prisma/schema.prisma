@@ -17,4 +17,22 @@ model recipe {
     servingSize String @default("1")
     prepTime String @default("0")
     cookTime String @default("0")
+    ingredients ingredient[]
+    steps   step[]
+}
+
+model ingredient {
+  id Int @default(autoincrement()) @id
+  name String
+  amount String
+  recipe recipe @relation(fields: [recipeId], references: [id])
+  recipeId Int
+}
+
+model step {
+  id Int @default(autoincrement()) @id
+  stepNumber Int
+  description String
+  recipe recipe @relation(fields: [recipeId], references: [id])
+  recipeId Int
 }
