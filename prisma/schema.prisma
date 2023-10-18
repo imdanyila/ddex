@@ -25,6 +25,7 @@ model ingredient {
   id Int @default(autoincrement()) @id
   name String
   amount String
+  unit String
   recipe recipe @relation(fields: [recipeId], references: [id])
   recipeId Int
 

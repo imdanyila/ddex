@@ -18,10 +18,12 @@ export const exampleRouter = createTRPCRouter({
         cookTime: z.string(),
         steps: z.array(z.object({
             stepNumber: z.number(), 
-    description: z.string()       })),
-    ingredients: z.array(z.object({
-        name: z.string(),
-        amount: z.string(),
+            description: z.string()       
+        })),
+        ingredients: z.array(z.object({
+            name: z.string(),
+            amount: z.string(),
+            unit: z.string()
     }))
     })).mutation(async ({ input:{ steps, ingredients, ...other}, ctx }) => {
         return await ctx.db.recipe.create({
