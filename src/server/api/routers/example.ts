@@ -43,9 +43,23 @@ export const exampleRouter = createTRPCRouter({
     deleteRecipe: publicProcedure.input(z.object({
         id: z.number()
     })).mutation(async ({ input, ctx }) => {
+        await ctx.db.step.deleteMany({
+            where: {
+                recipeId: input.id
+            }
+        })
+        await ctx.db.ingredient.deleteMany({
+            where: {
+                recipeId: input.id
+            }
+        })
         const deleteRecipe = await ctx.db.recipe.delete({
             where: {
                 id: input.id
+            },
+            include: {
+                ingredients: true,
+                steps: true,
             }
         })
         return deleteRecipe;

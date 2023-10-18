@@ -27,6 +27,8 @@ model ingredient {
   amount String
   recipe recipe @relation(fields: [recipeId], references: [id])
   recipeId Int
+
+  @@index([recipeId])
 }
 
 model step {
@@ -35,4 +37,6 @@ model step {
   description String
   recipe recipe @relation(fields: [recipeId], references: [id])
   recipeId Int
+
+  @@index([recipeId])
 }

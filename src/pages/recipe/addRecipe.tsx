@@ -21,21 +21,21 @@ interface Recipe{
   steps: Step[];
 }
 
+// blank recipe
+const blankRecipe: Recipe = {
+  dishName: "",
+  servingSize: "",
+  prepTime: "",
+  cookTime: "",
+  ingredients: [],
+  steps: []
+};
+
 export default function AddRecipe() {
   // calls api endpoints
   const allRecipes = api.example.getAllRecipes.useQuery();
   const addRecipes = api.example.addRecipe.useMutation();
   const deleteRecipes = api.example.deleteRecipe.useMutation();
-
-  // blank recipe
-  const blankRecipe: Recipe = {
-    dishName: "",
-    servingSize: "",
-    prepTime: "",
-    cookTime: "",
-    ingredients: [],
-    steps: []
-  };
 
   // recipe state
   const [recipe, setRecipe] = useState<Recipe>(blankRecipe);
